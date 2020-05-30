@@ -1,0 +1,13 @@
+version: "3.2"
+services:
+
+  xorter-create-link:
+    build:
+        context: ./
+        dockerfile: Dockerfile.dev
+    environment:
+      - ENVIRONMENT=dev
+    ports:
+        - 8080:8080
+    volumes:
+        - ./:/go/src/app
