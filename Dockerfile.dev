@@ -10,6 +10,6 @@ COPY . ./
 
 RUN go get -u
 
-RUN ls -lha
+RUN pwd; ls -lha
 
 CMD ["/usr/bin/air"]

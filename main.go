@@ -2,6 +2,7 @@ package main
 
 import (
 	"chip/controllers/healthcheck"
+	"chip/controllers/system"
 
 	"github.com/gin-gonic/gin"
 )
@@ -9,7 +10,13 @@ import (
 func main() {
 
 	router := gin.Default()
+	// Healthcheck
+	router.GET("/healthcheck", healthcheck.Ok)
+	router.GET("/healthcheck/fault", healthcheck.FaultRandom)
+	router.GET("/healthcheck/error", healthcheck.Error)
 
-	router.GET("/healthcheck", healthcheck.Get)
+	// System
+	router.GET("/system", system.Get)
+
 	router.Run()
 }

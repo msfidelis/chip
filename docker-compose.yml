@@ -1,7 +1,6 @@
 version: "3.2"
 services:
-
-  xorter-create-link:
+  chip:
     build:
         context: ./
         dockerfile: Dockerfile.dev
@@ -10,4 +9,12 @@ services:
     ports:
         - 8080:8080
     volumes:
-        - ./:/go/src/app
+        - ./:/go/src/chip
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+        reservations:
+          cpus: '0.5'
+          memory: 120M
