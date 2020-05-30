@@ -1,4 +1,4 @@
-<h1 align="center">Welcome to Chip - Cloud Native &#34;Smart&#34; Dummy Mock 👋</h1>
+<h1 align="center">Welcome to Chip - Cloud Native &#34;Smart&#34; Dummy Mock :package: :whale: </h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-0-blue.svg?cacheSeconds=2592000" />
   <a href="/README.md" target="_blank">
