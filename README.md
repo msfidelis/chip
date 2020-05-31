@@ -60,16 +60,15 @@ docker run -it -p 8080:8080 msfidelis/chip:v1
 * [v2-blue]()
 * [v2-green]()
 
-## Endpoints
+# Endpoints
 
 
+## Healthcheck Endpoint
 
-### Healthcheck Endpoint
+Common healthcheck, dummy mock
 
 ```sh
 curl 0.0.0.0:8080/healthcheck -i
-
-Common healthcheck, dummy mock
 
 HTTP/1.1 200 OK
 Content-Type: application/json; charset=utf-8
@@ -79,9 +78,7 @@ Content-Length: 14
 {"status":200}
 ```
 
-
-
-### Healthcheck Endpoint (Error)
+## Healthcheck Endpoint (Error)
 
 Simulate error on Healthcheck
 
@@ -96,9 +93,7 @@ Content-Length: 14
 {"status":503}
 ```
 
-
-
-### Healthcheck with Fault Injection (Random Mode)
+## Healthcheck with Fault Injection (Random Mode)
 
 Use this for fault injection, circuit breaker, self healing tests on your readiness probe
 
@@ -126,9 +121,7 @@ while true; do curl 0.0.0.0:8080/healthcheck/fault; echo;  done
 {"status":200}
 ```
 
-
-
-### Healthcheck with Fault Injection (Soft Mode)
+## Healthcheck with Fault Injection (Soft Mode)
 
 Cause ocasional failure in your probe
 
@@ -151,9 +144,7 @@ while true; do curl 0.0.0.0:8080/healthcheck/fault/soft; echo;  done
 {"status":503}
 ```
 
-
-
-### Version
+## Version
 
 This endpoint return different values in accord to tag version, v1, v2, v1-blue, v1-green, v2-blue and v2-green. Ideal to tests deployment scenarios behavior, like rollout, canary, blue / green etc
 
@@ -168,9 +159,7 @@ Content-Length: 16
 {"version":"v1"}
 ```
 
-
-
-### System Info 
+## System Info 
 Retrieve some system info. Use this to test memory, cpu limits and isolation. Host name for load balancing tests and etc.
 
 ```sh
@@ -184,9 +173,7 @@ Content-Length: 76
 {"hostname":"21672316d98d","cpus":2,"os":"","hypervisor":"bhyve","memory":0}
 ```
 
-
-
-### Reflection (In Progress)
+## Reflection (In Progress)
 
 Use this endpoint to retrieve request headers, body, querystrings, cookies, etc. Ideal to tests API Gateway, CDN, Proxys, Load Balancers transformations on request
 
@@ -210,9 +197,7 @@ curl -X PATCH 0.0.0.0:8080/reflect -i
 curl -X DELETE 0.0.0.0:8080/reflect -i
 ```
 
-
-
-### Load
+## Load
 
 Use this endpoint to consume some CPU resources. Ideal to test auto scale policies, isolation, monitoring and alerts behaviors.
 
@@ -221,7 +206,6 @@ Use this endpoint to consume some CPU resources. Ideal to test auto scale polici
 ```sh 
 curl -X GET 0.0.0.0:8080/burn/cpu -i
 ```
-
 
 
 ## Author
