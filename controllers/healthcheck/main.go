@@ -14,9 +14,31 @@ func Ok(c *gin.Context) {
 }
 
 func FaultRandom(c *gin.Context) {
-
 	status := []int{
 		http.StatusServiceUnavailable,
+		http.StatusOK,
+	}
+
+	n := rand.Int() % len(status)
+
+	c.JSON(status[n], gin.H{
+		"status": status[n],
+	})
+}
+
+func FaultSoft(c *gin.Context) {
+	status := []int{
+		http.StatusServiceUnavailable,
+		http.StatusOK,
+		http.StatusOK,
+		http.StatusOK,
+		http.StatusOK,
+		http.StatusOK,
+		http.StatusOK,
+		http.StatusOK,
+		http.StatusOK,
+		http.StatusOK,
+		http.StatusOK,
 		http.StatusOK,
 	}
 

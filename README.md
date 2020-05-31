@@ -68,9 +68,9 @@ Content-Length: 14
 {"status":503}
 ```
 
-### Healthcheck with Fault Injection
+### Healthcheck with Fault Injection (Random Mode)
 
-Use this for fault injection, circuit breaker, self healing tests
+Use this for fault injection, circuit breaker, self healing tests on your readiness probe
 
 ```sh
 while true; do curl 0.0.0.0:8080/healthcheck/fault; echo;  done
@@ -96,15 +96,38 @@ while true; do curl 0.0.0.0:8080/healthcheck/fault; echo;  done
 {"status":200}
 ```
 
+### Healthcheck with Fault Injection (Soft Mode)
+
+Cause ocasional failure in your probe
+
+```sh
+while true; do curl 0.0.0.0:8080/healthcheck/fault/soft; echo;  done
+
+{"status":200}
+{"status":200}
+{"status":200}
+{"status":200}
+{"status":200}
+{"status":200}
+{"status":200}
+{"status":200}
+{"status":200}
+{"status":200}
+{"status":503}
+{"status":200}
+{"status":200}
+{"status":503}
+```
+
 
 ### System Info 
-Retrieve some system info. Use this to test memory, cpu limits and isolation. Host name for load balancing tests and etc. 
+Retrieve some system info. Use this to test memory, cpu limits and isolation. Host name for load balancing tests and etc.
 
 ```sh
 curl 0.0.0.0:8080/system -i
 ```
 
-### Reflection
+### Reflection (In Progress)
 
 Use this endpoint to retrieve request headers, body, querystrings, cookies, etc. Ideal to tests API Gateway, CDN, Proxys, Load Balancers transformations on request
 
@@ -130,10 +153,12 @@ curl -X DELETE 0.0.0.0:8080/reflect -i
 
 ### Load
 
-Use this endpoint to consume some CPU / Memory resources. Ideal to test auto scale policies, monitoring and alerts behaviors. 
+Use this endpoint to consume some CPU resources. Ideal to test auto scale policies, monitoring and alerts behaviors.
+
+> Danger
 
 ```sh 
-curl -X GET 0.0.0.0:8080/load -i
+curl -X GET 0.0.0.0:8080/burn/cpu -i
 ```
 
 ## Author

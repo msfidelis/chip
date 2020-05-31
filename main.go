@@ -1,7 +1,9 @@
 package main
 
 import (
+	"chip/controllers/burn"
 	"chip/controllers/healthcheck"
+	"chip/controllers/reflection"
 	"chip/controllers/system"
 
 	"github.com/gin-gonic/gin"
@@ -10,13 +12,21 @@ import (
 func main() {
 
 	router := gin.Default()
+
 	// Healthcheck
 	router.GET("/healthcheck", healthcheck.Ok)
 	router.GET("/healthcheck/fault", healthcheck.FaultRandom)
+	router.GET("/healthcheck/fault/soft", healthcheck.FaultSoft)
 	router.GET("/healthcheck/error", healthcheck.Error)
 
 	// System
 	router.GET("/system", system.Get)
+
+	// Stress Test
+	router.GET("/burn/cpu", burn.Cpu)
+
+	// Reflection
+	router.Any("/reflection", reflection.Get)
 
 	router.Run()
 }
