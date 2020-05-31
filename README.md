@@ -1,4 +1,4 @@
-<h1 align="center">Welcome to Chip - Cloud Native &#34;Smart&#34; Dummy Mock :package: :whale: </h1>
+<h1 align="center">Chip - Cloud Native &#34;Smart&#34; Dummy Mock :package: :whale: </h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-0-blue.svg?cacheSeconds=2592000" />
   <a href="/README.md" target="_blank">
@@ -30,13 +30,38 @@ go get -u
 go test
 ```
 
+## Setup Development Environment
+
+* Development environment uses [air project](https://github.com/cosmtrek/air) to execute live reload on `.go` files.
+
+```sh
+docker-compose up --force-recreate
+```
+
+## Build image
+
+```sh
+docker build -it chip
+```
+
 ## Usage
 
 ```sh
 docker run -it -p 8080:8080 msfidelis/chip:v1
 ```
 
+## Available Images for tests scenarios
+
+* [v1]()
+* [v1-blue]()
+* [v1-green]()
+* [v2]()
+* [v2-blue]()
+* [v2-green]()
+
 ## Endpoints
+
+
 
 ### Healthcheck Endpoint
 
@@ -53,6 +78,8 @@ Content-Length: 14
 {"status":200}
 ```
 
+
+
 ### Healthcheck Endpoint (Error)
 
 Simulate error on Healthcheck
@@ -67,6 +94,8 @@ Content-Length: 14
 
 {"status":503}
 ```
+
+
 
 ### Healthcheck with Fault Injection (Random Mode)
 
@@ -96,6 +125,8 @@ while true; do curl 0.0.0.0:8080/healthcheck/fault; echo;  done
 {"status":200}
 ```
 
+
+
 ### Healthcheck with Fault Injection (Soft Mode)
 
 Cause ocasional failure in your probe
@@ -120,12 +151,39 @@ while true; do curl 0.0.0.0:8080/healthcheck/fault/soft; echo;  done
 ```
 
 
+
+### Version
+
+This endpoint return different values in accord to tag version, v1, v2, v1-blue, v1-green, v2-blue and v2-green. Ideal to tests deployment scenarios behavior, like rollout, canary, blue / green etc
+
+```sh
+curl 0.0.0.0:8080/version -i
+
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Date: Sun, 31 May 2020 03:38:21 GMT
+Content-Length: 16
+
+{"version":"v1"}
+```
+
+
+
 ### System Info 
 Retrieve some system info. Use this to test memory, cpu limits and isolation. Host name for load balancing tests and etc.
 
 ```sh
 curl 0.0.0.0:8080/system -i
+
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Date: Sun, 31 May 2020 03:33:12 GMT
+Content-Length: 76
+
+{"hostname":"21672316d98d","cpus":2,"os":"","hypervisor":"bhyve","memory":0}
 ```
+
+
 
 ### Reflection (In Progress)
 
@@ -151,15 +209,19 @@ curl -X PATCH 0.0.0.0:8080/reflect -i
 curl -X DELETE 0.0.0.0:8080/reflect -i
 ```
 
+
+
 ### Load
 
-Use this endpoint to consume some CPU resources. Ideal to test auto scale policies, monitoring and alerts behaviors.
+Use this endpoint to consume some CPU resources. Ideal to test auto scale policies, isolation, monitoring and alerts behaviors.
 
 > Danger
 
 ```sh 
 curl -X GET 0.0.0.0:8080/burn/cpu -i
 ```
+
+
 
 ## Author
 
