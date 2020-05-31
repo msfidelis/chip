@@ -18,10 +18,11 @@
 
 ### ✨ [Demo](/)
 
-## Install
+## Compile Go Binary (Without Docker)
 
 ```sh
 go get -u
+CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
 ```
 
 ## Run tests
