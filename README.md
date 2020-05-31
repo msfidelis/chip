@@ -175,27 +175,57 @@ Content-Length: 76
 
 ## Reflection (In Progress)
 
-Use this endpoint to retrieve request headers, body, querystrings, cookies, etc. Ideal to tests API Gateway, CDN, Proxys, Load Balancers transformations on request
+Use this endpoint to retrieve request headers, body, querystrings, cookies, etc. Ideal to tests API Gateway, CDN, Proxys, Load Balancers transformations on request. Available for all HTTP methods
 
 ```sh
 curl -X GET 0.0.0.0:8080/reflect -i
+
+{
+  "method": "GET",
+  "params": "",
+  "headers": {
+    "Accept": [
+      "*/*"
+    ],
+    "User-Agent": [
+      "curl/7.64.1"
+    ]
+  },
+  "cookies": [],
+  "body": "",
+  "path": "/reflection"
+}
 ```
 
 ```sh
-curl -X POST 0.0.0.0:8080/reflect -i
+curl -X POST "0.0.0.0:8080/reflection?id=1" -H "Header-Foo: Bar" -d '{"foo":"bar"}' | jq .
+
+{
+  "method": "POST",
+  "params": "id=1",
+  "headers": {
+    "Accept": [
+      "*/*"
+    ],
+    "Content-Length": [
+      "13"
+    ],
+    "Content-Type": [
+      "application/x-www-form-urlencoded"
+    ],
+    "Header-Foo": [
+      "Bar"
+    ],
+    "User-Agent": [
+      "curl/7.64.1"
+    ]
+  },
+  "cookies": [],
+  "body": "{\"foo\":\"bar\"}",
+  "path": "/reflection"
+}
 ```
 
-```sh
-curl -X PUT 0.0.0.0:8080/reflect -i
-```
-
-```sh
-curl -X PATCH 0.0.0.0:8080/reflect -i
-```
-
-```sh
-curl -X DELETE 0.0.0.0:8080/reflect -i
-```
 
 ## Load
 

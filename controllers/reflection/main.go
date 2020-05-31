@@ -7,30 +7,27 @@ import (
 )
 
 type Request struct {
-	Params  string `json:"params" binding:"required"`
-	Headers string `json:"headers" binding:"required"`
+	Method  string         `json:"method" binding:"required"`
+	Params  string         `json:"params" binding:"required"`
+	Headers http.Header    `json:"headers" binding:"required"`
+	Cookies []*http.Cookie `json:"cookies" binding:"required"`
+	Body    string         `json:"body" binding:"required"`
+	Path    string         `json:"path" binding:"required"`
 }
 
 func Get(c *gin.Context) {
+	var request Request
 
-	// var request Request
-	// request.Headers = c.Request.Params
+	buf := make([]byte, 1024)
+	num, _ := c.Request.Body.Read(buf)
+	reqBody := string(buf[0:num])
 
-	c.JSON(http.StatusOK, c.Request.Header)
-}
+	request.Method = c.Request.Method
+	request.Headers = c.Request.Header
+	request.Cookies = c.Request.Cookies()
+	request.Path = c.Request.URL.Path
+	request.Body = reqBody
+	request.Params = c.Request.URL.RawQuery
 
-func Post(c *gin.Context) {
-
-}
-
-func Put(c *gin.Context) {
-
-}
-
-func Patch(c *gin.Context) {
-
-}
-
-func Delete(c *gin.Context) {
-
+	c.JSON(http.StatusOK, request)
 }

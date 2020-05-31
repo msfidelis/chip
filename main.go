@@ -28,6 +28,7 @@ func main() {
 
 	// Stress Test
 	router.GET("/burn/cpu", burn.Cpu)
+	router.GET("/burn/ram", burn.Mem)
 
 	// Reflection
 	router.Any("/reflection", reflection.Get)

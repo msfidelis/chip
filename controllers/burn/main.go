@@ -37,3 +37,9 @@ func Cpu(c *gin.Context) {
 	})
 
 }
+
+func Mem(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{
+		"status": "On Fire",
+	})
+}
