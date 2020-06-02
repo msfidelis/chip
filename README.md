@@ -235,6 +235,13 @@ Use this endpoint to consume some CPU resources. Ideal to test auto scale polici
 
 ```sh 
 curl -X GET 0.0.0.0:8080/burn/cpu -i
+
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Date: Tue, 02 Jun 2020 04:42:24 GMT
+Content-Length: 20
+
+{"status":"On Fire"}
 ```
 
 
