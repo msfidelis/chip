@@ -1,6 +1,5 @@
-<h1 align="center">Chip - Lightweight Cloud Native &#34;Smart&#34; Dummy Mock Container :package: :whale: </h1>
+<p><img alt="Version" src="./.github/images/logo.png" /></p>
 <p>
-  <img alt="Version" src="./.github/images/logo.png" />
   <img alt="Version" src="https://img.shields.io/badge/version-0-blue.svg?cacheSeconds=2592000" />
   <a href="/README.md" target="_blank">
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
