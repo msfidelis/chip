@@ -63,7 +63,7 @@ metadata:
   name: chip
   namespace: chip
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-staging
+    cert-manager.io/cluster-issuer: letsencrypt-prod
     ingress.kubernetes.io/force-ssl-redirect: "false"
     kubernetes.io/ingress.class: contour
     kubernetes.io/tls-acme: "true"
