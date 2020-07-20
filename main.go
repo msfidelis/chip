@@ -3,6 +3,7 @@ package main
 import (
 	"chip/controllers/burn"
 	"chip/controllers/healthcheck"
+	"chip/controllers/ping"
 	"chip/controllers/reflection"
 	"chip/controllers/system"
 	"chip/controllers/version"
@@ -32,6 +33,9 @@ func main() {
 
 	// Reflection
 	router.Any("/reflection", reflection.Get)
+
+	//Ping
+	router.GET("/ping/:host/:port", ping.Tcp)
 
 	router.Run()
 }
