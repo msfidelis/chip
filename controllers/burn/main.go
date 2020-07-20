@@ -39,7 +39,17 @@ func Cpu(c *gin.Context) {
 }
 
 func Mem(c *gin.Context) {
+
+	var s []int
+
+	sum := 1
+	for sum < 9999998 {
+		sum += 1
+		s = append(s, sum)
+	}
+
 	c.JSON(http.StatusOK, gin.H{
 		"status": "On Fire",
 	})
+
 }

@@ -244,6 +244,17 @@ Content-Length: 20
 {"status":"On Fire"}
 ```
 
+```sh 
+curl -X GET 0.0.0.0:8080/burn/ram -i
+
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Date: Tue, 02 Jun 2020 04:42:24 GMT
+Content-Length: 20
+
+{"status":"On Fire"}
+```
+
 ## Check ACL and Connection to Ports
 
 Check connection between container environment / namespace and services and another applications
