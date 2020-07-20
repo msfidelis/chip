@@ -244,6 +244,22 @@ Content-Length: 20
 {"status":"On Fire"}
 ```
 
+## Check ACL and Connection to Ports
+
+Check connection between container environment / namespace and services and another applications
+
+
+```sh
+curl -X GET 0.0.0.0:8080/ping/google.com/80 -i
+
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Date: Mon, 20 Jul 2020 16:04:02 GMT
+Content-Length: 71
+
+{"host":"google.com","port":"80","protocol":"tcp","status":"connected"}
+```
+
 
 ## Author
 
