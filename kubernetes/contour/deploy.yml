@@ -26,7 +26,7 @@ spec:
     spec:
       terminationGracePeriodSeconds: 60
       containers:
-      - image: msfidelis/chip:v2
+      - image: msfidelis/chip:v1
         name: chip
         imagePullPolicy: Always
         readinessProbe:
