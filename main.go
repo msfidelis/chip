@@ -2,6 +2,7 @@ package main
 
 import (
 	"chip/controllers/burn"
+	"chip/controllers/environment"
 	"chip/controllers/healthcheck"
 	"chip/controllers/ping"
 	"chip/controllers/reflection"
@@ -23,6 +24,9 @@ func main() {
 
 	// Version
 	router.GET("/version", version.Get)
+
+	// Environment
+	router.GET("/environment", environment.Get)
 
 	// System
 	router.GET("/system", system.Get)
