@@ -1,0 +1,120 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Cloud Native Toolset Running in Containers.",
+        "title": "Chip",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "API Support",
+            "email": "matheus@nanoshots.com.br"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://github.com/mfidelis/chip/blob/master/LICENSE"
+        },
+        "version": "1.0"
+    },
+    "basePath": "/",
+    "paths": {
+        "/burn/cpu": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Loadtest"
+                ],
+                "summary": "Burn CPU for Loadtests and Auto Scaling Tests"
+            }
+        },
+        "/burn/ram": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Loadtest"
+                ],
+                "summary": "Burn RAM for Loadtests and Auto Scaling Tests"
+            }
+        },
+        "/healthcheck": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Healthcheck"
+                ],
+                "summary": "Return 200 status Ok in healthcheck"
+            }
+        },
+        "/healthcheck/error": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Healthcheck"
+                ],
+                "summary": "Return 500 Error Status Code"
+            }
+        },
+        "/healthcheck/fault": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Healthcheck"
+                ],
+                "summary": "Inject common errors in healthcheck"
+            }
+        },
+        "/healthcheck/fault/soft": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Healthcheck"
+                ],
+                "summary": "Inject ocasional erros in healthcheck"
+            }
+        },
+        "/reflection": {},
+        "/system": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "System"
+                ],
+                "summary": "Return 500 Error Status Code"
+            }
+        },
+        "/system/environment": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "System"
+                ],
+                "summary": "Dump all environment variables in container"
+            }
+        },
+        "/version": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "System"
+                ],
+                "summary": "Return version for container"
+            }
+        }
+    }
+}
