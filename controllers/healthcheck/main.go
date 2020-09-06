@@ -7,15 +7,24 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+type Healthcheck struct {
+	Status      int    `json:"status" binding:"required"`
+	Description string `json:"description" binding:"required"`
+}
+
 // Ok godoc
 // @Summary Return 200 status Ok in healthcheck
 // @Tags Healthcheck
 // @Produce json
+// @Success 200 {object} Healthcheck
 // @Router /healthcheck [get]
 func Ok(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{
-		"status": http.StatusOK,
-	})
+
+	var response Healthcheck
+	response.Status = http.StatusOK
+	response.Description = "default"
+
+	c.JSON(http.StatusOK, response)
 }
 
 // FaultRandom godoc
@@ -23,8 +32,12 @@ func Ok(c *gin.Context) {
 // @Tags Healthcheck
 // @Produce json
 // @Router /healthcheck/fault [get]
+// @Success 200 {object} Healthcheck
+// @Error 503 {object} Healthcheck
 // @Tag healthcheck
 func FaultRandom(c *gin.Context) {
+	var response Healthcheck
+
 	status := []int{
 		http.StatusServiceUnavailable,
 		http.StatusOK,
@@ -32,17 +45,21 @@ func FaultRandom(c *gin.Context) {
 
 	n := rand.Int() % len(status)
 
-	c.JSON(status[n], gin.H{
-		"status": status[n],
-	})
+	response.Status = status[n]
+	response.Description = "fault injection"
+
+	c.JSON(status[n], response)
 }
 
 // FaultSoft godoc
 // @Summary Inject ocasional erros in healthcheck
 // @Tags Healthcheck
 // @Produce json
+// @Success 200 {object} Healthcheck
+// @Error 503 {object} Healthcheck
 // @Router /healthcheck/fault/soft [get]
 func FaultSoft(c *gin.Context) {
+	var response Healthcheck
 	status := []int{
 		http.StatusServiceUnavailable,
 		http.StatusOK,
@@ -60,18 +77,22 @@ func FaultSoft(c *gin.Context) {
 
 	n := rand.Int() % len(status)
 
-	c.JSON(status[n], gin.H{
-		"status": status[n],
-	})
+	response.Status = status[n]
+	response.Description = "fault injection - soft mode with ocasional failures"
+
+	c.JSON(status[n], response)
 }
 
 // Error godoc
 // @Summary Return 500 Error Status Code
 // @Tags Healthcheck
 // @Produce json
+// @Success 200 {object} Healthcheck
+// @Error 503 {object} Healthcheck
 // @Router /healthcheck/error [get]
 func Error(c *gin.Context) {
-	c.JSON(http.StatusServiceUnavailable, gin.H{
-		"status": http.StatusServiceUnavailable,
-	})
+	var response Healthcheck
+	response.Status = http.StatusServiceUnavailable
+	response.Description = "intentional error"
+	c.JSON(http.StatusServiceUnavailable, response)
 }

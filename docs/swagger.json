@@ -46,7 +46,15 @@
                 "tags": [
                     "Healthcheck"
                 ],
-                "summary": "Return 200 status Ok in healthcheck"
+                "summary": "Return 200 status Ok in healthcheck",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/healthcheck.Healthcheck"
+                        }
+                    }
+                }
             }
         },
         "/healthcheck/error": {
@@ -57,7 +65,15 @@
                 "tags": [
                     "Healthcheck"
                 ],
-                "summary": "Return 500 Error Status Code"
+                "summary": "Return 500 Error Status Code",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/healthcheck.Healthcheck"
+                        }
+                    }
+                }
             }
         },
         "/healthcheck/fault": {
@@ -68,7 +84,15 @@
                 "tags": [
                     "Healthcheck"
                 ],
-                "summary": "Inject common errors in healthcheck"
+                "summary": "Inject common errors in healthcheck",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/healthcheck.Healthcheck"
+                        }
+                    }
+                }
             }
         },
         "/healthcheck/fault/soft": {
@@ -79,10 +103,104 @@
                 "tags": [
                     "Healthcheck"
                 ],
-                "summary": "Inject ocasional erros in healthcheck"
+                "summary": "Inject ocasional erros in healthcheck",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/healthcheck.Healthcheck"
+                        }
+                    }
+                }
             }
         },
-        "/reflection": {},
+        "/reflection": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Reflection"
+                ],
+                "summary": "Retun request parameters in response for transformation tests",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/reflect.Request"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Reflection"
+                ],
+                "summary": "Retun request parameters in response for transformation tests",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/reflect.Request"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Reflection"
+                ],
+                "summary": "Retun request parameters in response for transformation tests",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/reflect.Request"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Reflection"
+                ],
+                "summary": "Retun request parameters in response for transformation tests",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/reflect.Request"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Reflection"
+                ],
+                "summary": "Retun request parameters in response for transformation tests",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/reflect.Request"
+                        }
+                    }
+                }
+            }
+        },
         "/system": {
             "get": {
                 "produces": [
@@ -91,7 +209,15 @@
                 "tags": [
                     "System"
                 ],
-                "summary": "Return 500 Error Status Code"
+                "summary": "Return 500 Error Status Code",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/system.Capabilities"
+                        }
+                    }
+                }
             }
         },
         "/system/environment": {
@@ -111,9 +237,84 @@
                     "application/json"
                 ],
                 "tags": [
-                    "System"
+                    "Version"
                 ],
                 "summary": "Return version for container"
+            }
+        }
+    },
+    "definitions": {
+        "healthcheck.Healthcheck": {
+            "type": "object",
+            "required": [
+                "description",
+                "status"
+            ],
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                }
+            }
+        },
+        "reflect.Request": {
+            "type": "object",
+            "required": [
+                "body",
+                "cookies",
+                "headers",
+                "method",
+                "params",
+                "path"
+            ],
+            "properties": {
+                "body": {
+                    "type": "string"
+                },
+                "cookies": {
+                    "type": "string"
+                },
+                "headers": {
+                    "type": "string"
+                },
+                "method": {
+                    "type": "string"
+                },
+                "params": {
+                    "type": "string"
+                },
+                "path": {
+                    "type": "string"
+                }
+            }
+        },
+        "system.Capabilities": {
+            "type": "object",
+            "required": [
+                "cpus",
+                "hostname",
+                "hypervisor",
+                "memory",
+                "os"
+            ],
+            "properties": {
+                "cpus": {
+                    "type": "integer"
+                },
+                "hostname": {
+                    "type": "string"
+                },
+                "hypervisor": {
+                    "type": "string"
+                },
+                "memory": {
+                    "type": "integer"
+                },
+                "os": {
+                    "type": "string"
+                }
             }
         }
     }
