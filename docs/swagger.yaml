@@ -1,0 +1,78 @@
+basePath: /
+info:
+  contact:
+    email: matheus@nanoshots.com.br
+    name: API Support
+  description: Cloud Native Toolset Running in Containers.
+  license:
+    name: MIT
+    url: https://github.com/mfidelis/chip/blob/master/LICENSE
+  termsOfService: http://swagger.io/terms/
+  title: Chip
+  version: "1.0"
+paths:
+  /burn/cpu:
+    get:
+      produces:
+      - application/json
+      summary: Burn CPU for Loadtests and Auto Scaling Tests
+      tags:
+      - Loadtest
+  /burn/ram:
+    get:
+      produces:
+      - application/json
+      summary: Burn RAM for Loadtests and Auto Scaling Tests
+      tags:
+      - Loadtest
+  /healthcheck:
+    get:
+      produces:
+      - application/json
+      summary: Return 200 status Ok in healthcheck
+      tags:
+      - Healthcheck
+  /healthcheck/error:
+    get:
+      produces:
+      - application/json
+      summary: Return 500 Error Status Code
+      tags:
+      - Healthcheck
+  /healthcheck/fault:
+    get:
+      produces:
+      - application/json
+      summary: Inject common errors in healthcheck
+      tags:
+      - Healthcheck
+  /healthcheck/fault/soft:
+    get:
+      produces:
+      - application/json
+      summary: Inject ocasional erros in healthcheck
+      tags:
+      - Healthcheck
+  /reflection: {}
+  /system:
+    get:
+      produces:
+      - application/json
+      summary: Return 500 Error Status Code
+      tags:
+      - System
+  /system/environment:
+    get:
+      produces:
+      - application/json
+      summary: Dump all environment variables in container
+      tags:
+      - System
+  /version:
+    get:
+      produces:
+      - application/json
+      summary: Return version for container
+      tags:
+      - System
+swagger: "2.0"

@@ -159,21 +159,6 @@ Content-Length: 16
 {"version":"v1"}
 ```
 
-## Dump Environment Variables
-
-```sh
-curl http://0.0.0.0:8080/environment -i  
-
-[
-  "HOSTNAME=78339a8484d4",
-  "HOME=/root",
-  "ENVIRONMENT=dev",
-  "PATH=/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
-  "GOPATH=/go",
-  "PWD=/go/src/chip",
-  "GOLANG_VERSION=1.13.11"
-]
-```
 
 ## System Info 
 Retrieve some system info. Use this to test memory, cpu limits and isolation. Host name for load balancing tests and etc.
@@ -187,6 +172,22 @@ Date: Sun, 31 May 2020 03:33:12 GMT
 Content-Length: 76
 
 {"hostname":"21672316d98d","cpus":2,"os":"","hypervisor":"bhyve","memory":0}
+```
+
+## Dump Environment Variables
+
+```sh
+curl http://0.0.0.0:8080/system/environment -i  
+
+[
+  "HOSTNAME=78339a8484d4",
+  "HOME=/root",
+  "ENVIRONMENT=dev",
+  "PATH=/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+  "GOPATH=/go",
+  "PWD=/go/src/chip",
+  "GOLANG_VERSION=1.13.11"
+]
 ```
 
 ## Reflection (In Progress)

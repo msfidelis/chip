@@ -15,6 +15,11 @@ type Request struct {
 	Path    string         `json:"path" binding:"required"`
 }
 
+// Get godoc
+// @Summary Retun request parameters in response for transformation tests
+// @Tags Reflection
+// @Produce json
+// @Router /reflection [any]
 func Get(c *gin.Context) {
 	var request Request
 

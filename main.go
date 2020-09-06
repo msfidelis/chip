@@ -2,7 +2,6 @@ package main
 
 import (
 	"chip/controllers/burn"
-	"chip/controllers/environment"
 	"chip/controllers/healthcheck"
 	"chip/controllers/ping"
 	"chip/controllers/reflection"
@@ -10,11 +9,31 @@ import (
 	"chip/controllers/version"
 
 	"github.com/gin-gonic/gin"
+
+	swaggerFiles "github.com/swaggo/files"
+	"github.com/swaggo/gin-swagger"
+
+	_ "chip/docs"
 )
 
+// @title Chip
+// @version 1.0
+// @description Cloud Native Toolset Running in Containers.
+// @termsOfService http://swagger.io/terms/
+
+// @contact.name API Support
+// @contact.email matheus@nanoshots.com.br
+
+// @license.name MIT
+// @license.url https://github.com/mfidelis/chip/blob/master/LICENSE
+
+// @BasePath /
 func main() {
 
 	router := gin.Default()
+
+	//Swagger
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	// Healthcheck
 	router.GET("/healthcheck", healthcheck.Ok)
@@ -25,11 +44,9 @@ func main() {
 	// Version
 	router.GET("/version", version.Get)
 
-	// Environment
-	router.GET("/environment", environment.Get)
-
 	// System
-	router.GET("/system", system.Get)
+	router.GET("/system", system.System)
+	router.GET("/system/environment", system.Environment)
 
 	// Stress Test
 	router.GET("/burn/cpu", burn.Cpu)

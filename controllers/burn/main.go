@@ -8,6 +8,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// Cpu godoc
+// @Summary Burn CPU for Loadtests and Auto Scaling Tests
+// @Produce json
+// @Tags Loadtest
+// @Router /burn/cpu [get]
 func Cpu(c *gin.Context) {
 
 	n := runtime.NumCPU()
@@ -38,6 +43,11 @@ func Cpu(c *gin.Context) {
 
 }
 
+// Cpu godoc
+// @Summary Burn RAM for Loadtests and Auto Scaling Tests
+// @Produce json
+// @Tags Loadtest
+// @Router /burn/ram [get]
 func Mem(c *gin.Context) {
 
 	var s []int
