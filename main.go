@@ -53,7 +53,11 @@ func main() {
 	router.GET("/burn/ram", burn.Mem)
 
 	// Reflection
-	router.Any("/reflection", reflection.Get)
+	router.GET("/reflection", reflection.Get)
+	router.POST("/reflection", reflection.Post)
+	router.PUT("/reflection", reflection.Put)
+	router.PATCH("/reflection", reflection.Patch)
+	router.DELETE("/reflection", reflection.Delete)
 
 	//Ping
 	router.GET("/ping/:host/:port", ping.Tcp)

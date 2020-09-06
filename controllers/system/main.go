@@ -13,6 +13,7 @@ import (
 // @Summary Return 500 Error Status Code
 // @Tags System
 // @Produce json
+// @Success 200 {object} system.Capabilities
 // @Router /system [get]
 func System(c *gin.Context) {
 

@@ -1,4 +1,56 @@
 basePath: /
+definitions:
+  healthcheck.Healthcheck:
+    properties:
+      description:
+        type: string
+      status:
+        type: integer
+    required:
+    - description
+    - status
+    type: object
+  reflect.Request:
+    properties:
+      body:
+        type: string
+      cookies:
+        type: string
+      headers:
+        type: string
+      method:
+        type: string
+      params:
+        type: string
+      path:
+        type: string
+    required:
+    - body
+    - cookies
+    - headers
+    - method
+    - params
+    - path
+    type: object
+  system.Capabilities:
+    properties:
+      cpus:
+        type: integer
+      hostname:
+        type: string
+      hypervisor:
+        type: string
+      memory:
+        type: integer
+      os:
+        type: string
+    required:
+    - cpus
+    - hostname
+    - hypervisor
+    - memory
+    - os
+    type: object
 info:
   contact:
     email: matheus@nanoshots.com.br
@@ -29,6 +81,11 @@ paths:
     get:
       produces:
       - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/healthcheck.Healthcheck'
       summary: Return 200 status Ok in healthcheck
       tags:
       - Healthcheck
@@ -36,6 +93,11 @@ paths:
     get:
       produces:
       - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/healthcheck.Healthcheck'
       summary: Return 500 Error Status Code
       tags:
       - Healthcheck
@@ -43,6 +105,11 @@ paths:
     get:
       produces:
       - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/healthcheck.Healthcheck'
       summary: Inject common errors in healthcheck
       tags:
       - Healthcheck
@@ -50,14 +117,79 @@ paths:
     get:
       produces:
       - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/healthcheck.Healthcheck'
       summary: Inject ocasional erros in healthcheck
       tags:
       - Healthcheck
-  /reflection: {}
+  /reflection:
+    delete:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/reflect.Request'
+      summary: Retun request parameters in response for transformation tests
+      tags:
+      - Reflection
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/reflect.Request'
+      summary: Retun request parameters in response for transformation tests
+      tags:
+      - Reflection
+    patch:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/reflect.Request'
+      summary: Retun request parameters in response for transformation tests
+      tags:
+      - Reflection
+    post:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/reflect.Request'
+      summary: Retun request parameters in response for transformation tests
+      tags:
+      - Reflection
+    put:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/reflect.Request'
+      summary: Retun request parameters in response for transformation tests
+      tags:
+      - Reflection
   /system:
     get:
       produces:
       - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/system.Capabilities'
       summary: Return 500 Error Status Code
       tags:
       - System
@@ -74,5 +206,5 @@ paths:
       - application/json
       summary: Return version for container
       tags:
-      - System
+      - Version
 swagger: "2.0"

@@ -51,6 +51,11 @@ docker build -it chip
 docker run -it -p 8080:8080 msfidelis/chip:v1
 ```
 
+## Swagger
+
+check on http://localhost:8080/swagger/index.html
+
+
 ## Available Images for tests scenarios
 
 * [v1]()
