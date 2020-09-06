@@ -159,6 +159,22 @@ Content-Length: 16
 {"version":"v1"}
 ```
 
+## Dump Environment Variables
+
+```sh
+curl http://0.0.0.0:8080/environment -i  
+
+[
+  "HOSTNAME=78339a8484d4",
+  "HOME=/root",
+  "ENVIRONMENT=dev",
+  "PATH=/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+  "GOPATH=/go",
+  "PWD=/go/src/chip",
+  "GOLANG_VERSION=1.13.11"
+]
+```
+
 ## System Info 
 Retrieve some system info. Use this to test memory, cpu limits and isolation. Host name for load balancing tests and etc.
 
