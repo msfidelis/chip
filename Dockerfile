@@ -4,7 +4,11 @@ WORKDIR $GOPATH/src/chip
 
 COPY . ./
 
+RUN go get -u github.com/swaggo/swag/cmd/swag
+
 RUN go get -u
+
+RUN swag init
 
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
 

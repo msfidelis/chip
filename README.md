@@ -18,6 +18,17 @@
 
 ### ✨ [Demo](/)
 
+#### Available images for test 
+
+* [v1]()
+* [v2]()
+* [latest]()
+
+```sh
+docker run -it -p 8080:8080 fidelissauro/chip:v1 
+```
+
+
 ## Compile Go Binary (Without Docker)
 
 ```sh
@@ -55,15 +66,6 @@ docker run -it -p 8080:8080 msfidelis/chip:v1
 
 check on http://localhost:8080/swagger/index.html
 
-
-## Available Images for tests scenarios
-
-* [v1]()
-* [v1-blue]()
-* [v1-green]()
-* [v2]()
-* [v2-blue]()
-* [v2-green]()
 
 # Endpoints
 
