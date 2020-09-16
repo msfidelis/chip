@@ -1,4 +1,4 @@
-FROM golang:1.13 AS builder
+FROM golang:1.15 AS builder
 
 # Install Air
 RUN curl -fLo air https://git.io/linux_air
