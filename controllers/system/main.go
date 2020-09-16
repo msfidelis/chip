@@ -6,6 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
+	"chip/libs/logging"
 	"chip/libs/system"
 )
 
@@ -16,13 +17,8 @@ import (
 // @Success 200 {object} system.Capabilities
 // @Router /system [get]
 func System(c *gin.Context) {
-
-	var info = system.Info()
-	// var si sysinfo.SysInfo
-	// si.GetSysInfo()
-
-	c.JSON(http.StatusOK, info)
-	// c.JSON(http.StatusOK, si)
+	logging.Debug("message", "getting things kkkk")
+	c.JSON(http.StatusOK, system.Info())
 }
 
 // Environment godoc

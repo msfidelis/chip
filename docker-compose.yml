@@ -10,11 +10,3 @@ services:
         - 8080:8080
     volumes:
         - ./:/go/src/chip
-    deploy:
-      resources:
-        limits:
-          cpus: '0.5'
-          memory: 256M
-        reservations:
-          cpus: '0.5'
-          memory: 120M
