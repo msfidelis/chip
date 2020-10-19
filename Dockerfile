@@ -13,7 +13,7 @@ RUN swag init
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
 
 
-FROM scratch
+FROM alpine:latest
 
 COPY --from=builder /go/src/chip/main ./
 
