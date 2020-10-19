@@ -4,7 +4,7 @@ WORKDIR $GOPATH/src/chip
 
 COPY . ./
 
-RUN go get -u github.com/swaggo/swag/cmd/swag
+RUN go get -u github.com/swaggo/swag/cmd/swag@v1.6.7
 
 RUN go get -u
 
