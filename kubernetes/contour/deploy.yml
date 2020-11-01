@@ -1,17 +1,17 @@
----
 apiVersion: v1
 kind: Namespace
 metadata:
+  annotations:
+    linkerd.io/inject: enabled
   name: chip
-
 ---
-kind: Deployment
 apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: chip
-  namespace: chip
   labels:
     name: chip
+  name: chip
+  namespace: chip
 spec:
   replicas: 3
   selector:
@@ -24,23 +24,22 @@ spec:
       labels:
         name: chip
     spec:
-      terminationGracePeriodSeconds: 60
       containers:
       - image: msfidelis/chip:v2
-        name: chip
         imagePullPolicy: Always
+        name: chip
+        ports:
+        - containerPort: 8080
+          name: http
         readinessProbe:
           httpGet:
             path: /healthcheck
-            port: 8080        
-        ports:
-        - name: http
-          containerPort: 8080
+            port: 8080
         resources:
           requests:
-            cpu: "256m"
-            memory: "512m"
-
+            cpu: 256m
+            memory: 512m
+      terminationGracePeriodSeconds: 60
 ---
 kind: Service
 apiVersion: v1
@@ -93,3 +92,4 @@ spec:
   - services:
     - name: chip
       port: 8080
+---
