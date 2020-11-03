@@ -1,8 +1,7 @@
 FROM golang:1.15 AS builder
 
 # Install Air
-RUN curl -fLo air https://git.io/linux_air
-RUN mv air /usr/bin/air && chmod +x /usr/bin/air
+RUN go get -u github.com/cosmtrek/air
 
 WORKDIR $GOPATH/src/chip
 
