@@ -10,8 +10,10 @@ import (
 
 	"github.com/gin-gonic/gin"
 
+	chaos "github.com/msfidelis/gin-chaos-monkey"
+
 	swaggerFiles "github.com/swaggo/files"
-	"github.com/swaggo/gin-swagger"
+	ginSwagger "github.com/swaggo/gin-swagger"
 
 	_ "chip/docs"
 )
@@ -31,6 +33,10 @@ import (
 func main() {
 
 	router := gin.Default()
+
+	//Middlewares
+	router.Use(gin.Recovery())
+	router.Use(chaos.Load())
 
 	//Swagger
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))

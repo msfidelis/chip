@@ -13,6 +13,6 @@ import (
 // @Router /version [get]
 func Get(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
-		"version": "v1",
+		"version": "v2",
 	})
 }
