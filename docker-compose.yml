@@ -6,6 +6,14 @@ services:
         dockerfile: Dockerfile.dev
     environment:
       - ENVIRONMENT=dev
+      - CHAOS_MONKEY_ENABLED=true
+      - CHAOS_MONKEY_MODE=critical
+      - CHAOS_MONKEY_LATENCY=true
+      - CHAOS_MONKEY_LATENCY_MAX_TIME=5000
+      - CHAOS_MONKEY_LATENCY_MIN_TIME=2000
+      - CHAOS_MONKEY_EXCEPTION=true
+      - CHAOS_MONKEY_APP_KILLER=true
+      - CHAOS_MONKEY_MEMORY=true
     ports:
         - 8080:8080
     volumes:
