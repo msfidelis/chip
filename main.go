@@ -8,6 +8,7 @@ import (
 	"chip/controllers/system"
 	"chip/controllers/version"
 
+	"github.com/Depado/ginprom"
 	"github.com/gin-gonic/gin"
 
 	chaos "github.com/msfidelis/gin-chaos-monkey"
@@ -34,7 +35,14 @@ func main() {
 
 	router := gin.Default()
 
+	p := ginprom.New(
+		ginprom.Engine(router),
+		ginprom.Subsystem("gin"),
+		ginprom.Path("/metrics"),
+	)
+
 	//Middlewares
+	router.Use(p.Instrument())
 	router.Use(gin.Recovery())
 	router.Use(chaos.Load())
 
