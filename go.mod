@@ -11,6 +11,7 @@ require (
 	github.com/go-openapi/swag v0.19.9 // indirect
 	github.com/mailru/easyjson v0.7.6 // indirect
 	github.com/msfidelis/gin-chaos-monkey v0.0.5
+	github.com/patrickmn/go-cache v2.1.0+incompatible
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/swaggo/files v0.0.0-20190704085106-630677cd5c14
 	github.com/swaggo/gin-swagger v1.2.0

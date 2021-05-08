@@ -3,14 +3,19 @@ package main
 import (
 	"chip/controllers/burn"
 	"chip/controllers/healthcheck"
+	"chip/controllers/liveness"
 	"chip/controllers/ping"
+	"chip/controllers/readiness"
 	"chip/controllers/reflection"
 	"chip/controllers/system"
 	"chip/controllers/version"
+	"time"
 
 	"github.com/Depado/ginprom"
 	"github.com/gin-gonic/gin"
 
+	// "github.com/patrickmn/go-cache"
+	"chip/libs/memory_cache"
 	chaos "github.com/msfidelis/gin-chaos-monkey"
 
 	swaggerFiles "github.com/swaggo/files"
@@ -35,6 +40,9 @@ func main() {
 
 	router := gin.Default()
 
+	c := memory_cache.GetInstance()
+	c.Set("readiness.ok", "false", 1*time.Minute)
+
 	p := ginprom.New(
 		ginprom.Engine(router),
 		ginprom.Subsystem("gin"),
@@ -54,6 +62,14 @@ func main() {
 	router.GET("/healthcheck/fault", healthcheck.FaultRandom)
 	router.GET("/healthcheck/fault/soft", healthcheck.FaultSoft)
 	router.GET("/healthcheck/error", healthcheck.Error)
+
+	// Liveness
+	router.GET("/liveness", liveness.Ok)
+	router.GET("/liveness/error", liveness.Error)
+
+	// Readinesscurl
+	router.GET("/readiness", readiness.Ok)
+	router.GET("/readiness/error", readiness.Error)
 
 	// Version
 	router.GET("/version", version.Get)
