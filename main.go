@@ -41,7 +41,7 @@ func main() {
 	router := gin.Default()
 
 	c := memory_cache.GetInstance()
-	c.Set("readiness.ok", "false", 1*time.Minute)
+	c.Set("readiness.ok", "false", 30*time.Second)
 
 	p := ginprom.New(
 		ginprom.Engine(router),
