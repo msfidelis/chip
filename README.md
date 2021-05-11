@@ -151,6 +151,60 @@ while true; do curl 0.0.0.0:8080/healthcheck/fault/soft; echo;  done
 {"status":503}
 ```
 
+## Liveness Probe OK
+
+For Liveness tests
+
+```sh
+curl 0.0.0.0:8080/liveness -i
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Date: Sat, 08 May 2021 14:00:05 GMT
+Content-Length: 17
+
+{"status":"Live"}
+```
+
+## Liveness Probe with intentional failure
+
+```sh 
+curl 0.0.0.0:8080/liveness/error -i
+HTTP/1.1 503 Service Unavailable
+Content-Type: application/json; charset=utf-8
+Date: Sat, 08 May 2021 14:01:08 GMT
+Content-Length: 17
+
+{"status":"Dead"}
+```
+
+## Readiness
+
+For readiness tests
+
+```sh 
+curl 0.0.0.0:8080/readiness -i
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Date: Sat, 08 May 2021 14:02:02 GMT
+Content-Length: 18
+
+{"status":"Ready"}
+```
+
+* You can set the environment variable  `READINESS_PROBE_MOCK_TIME_IN_SECONDS` to customize your readiness probe in seconds for testing. Default is 5 seconds. 
+
+## Liveness Probe with intentional failure
+
+```sh
+curl 0.0.0.0:8080/readiness/error -i
+HTTP/1.1 503 Service Unavailable
+Content-Type: application/json; charset=utf-8
+Date: Sat, 08 May 2021 14:02:37 GMT
+Content-Length: 22
+
+{"status":"Not Ready"}
+```
+
 ## Version
 
 This endpoint return different values in accord to tag version, v1, v2, v1-blue, v1-green, v2-blue and v2-green. Ideal to tests deployment scenarios behavior, like rollout, canary, blue / green etc
