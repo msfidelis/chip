@@ -191,6 +191,8 @@ Content-Length: 18
 {"status":"Ready"}
 ```
 
+* You can set the environment variable  `READINESS_PROBE_MOCK_TIME_IN_SECONDS` to customize your readiness probe in seconds for testing. Default is 5 seconds. 
+
 ## Liveness Probe with intentional failure
 
 ```sh

@@ -2,7 +2,6 @@ package readiness
 
 import (
 	"chip/libs/memory_cache"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -22,16 +21,15 @@ func Ok(c *gin.Context) {
 	m := memory_cache.GetInstance()
 	var response Readiness
 
-	foo, found := m.Get("readiness.ok")
+	_, found := m.Get("readiness.ok")
 	if found {
-		fmt.Println("Não esta pronto")
-		fmt.Println(foo)
+		response.Status = "NotReady"
+		c.JSON(http.StatusServiceUnavailable, response)
 	} else {
-		fmt.Println("Probe ok")
+		response.Status = "Ready"
+		c.JSON(http.StatusOK, response)
 	}
 
-	response.Status = "Ready"
-	c.JSON(http.StatusOK, response)
 }
 
 // Error godoc
@@ -43,6 +41,6 @@ func Ok(c *gin.Context) {
 // @Router /readiness/error [get]
 func Error(c *gin.Context) {
 	var response Readiness
-	response.Status = "Not Ready"
+	response.Status = "NotReady"
 	c.JSON(http.StatusServiceUnavailable, response)
 }

@@ -6,6 +6,7 @@ services:
         dockerfile: Dockerfile.dev
     environment:
       - ENVIRONMENT=dev
+      - READINESS_PROBE_MOCK_TIME_IN_SECONDS=10
       - CHAOS_MONKEY_ENABLED=true
       - CHAOS_MONKEY_MODE=critical
       - CHAOS_MONKEY_LATENCY=true
@@ -18,11 +19,3 @@ services:
         - 8080:8080
     volumes:
         - ./:/go/src/chip
-    deploy:
-      resources:
-        limits:
-          cpus: '0.5'
-          memory: 256M
-        reservations:
-          cpus: '0.5'
-          memory: 120M

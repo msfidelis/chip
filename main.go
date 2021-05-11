@@ -9,6 +9,9 @@ import (
 	"chip/controllers/reflection"
 	"chip/controllers/system"
 	"chip/controllers/version"
+	"fmt"
+	"os"
+	"strconv"
 	"time"
 
 	"github.com/Depado/ginprom"
@@ -44,11 +47,17 @@ func main() {
 	c := memory_cache.GetInstance()
 
 	// Readiness Probe Mock Config
+	probe_time_raw := os.Getenv("READINESS_PROBE_MOCK_TIME_IN_SECONDS")
+	if probe_time_raw == "" {
+		probe_time_raw = "5"
+	}
+	probe_time, err := strconv.ParseUint(probe_time_raw, 10, 64)
+	if err != nil {
+		fmt.Println("Environment variable READINESS_PROBE_MOCK_TIME_IN_SECONDS conversion error", err)
+	}
+	c.Set("readiness.ok", "false", time.Duration(probe_time)*time.Second)
 
-	probe_time := os.GetEnv("READINESS_PROBE_MOCK_TIME")
-
-	c.Set("readiness.ok", "false", 30*time.Second)
-
+	// Prometheus Exporter Config
 	p := ginprom.New(
 		ginprom.Engine(router),
 		ginprom.Subsystem("gin"),
