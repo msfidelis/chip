@@ -40,7 +40,13 @@ func main() {
 
 	router := gin.Default()
 
+	// Memory Cache Singleton
 	c := memory_cache.GetInstance()
+
+	// Readiness Probe Mock Config
+
+	probe_time := os.GetEnv("READINESS_PROBE_MOCK_TIME")
+
 	c.Set("readiness.ok", "false", 30*time.Second)
 
 	p := ginprom.New(
