@@ -9,6 +9,7 @@ import (
 	"chip/controllers/reflection"
 	"chip/controllers/system"
 	"chip/controllers/version"
+	"chip/controllers/teapot"
 	"fmt"
 	"os"
 	"strconv"
@@ -106,6 +107,9 @@ func main() {
 
 	//Ping
 	router.GET("/ping/:host/:port", ping.Tcp)
+
+	// I'am a Teapot
+	router.GET("/whoami", teapot.Get)
 
 	router.Run()
 }
