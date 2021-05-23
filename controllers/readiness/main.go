@@ -11,10 +11,10 @@ type Readiness struct {
 }
 
 // Ok godoc
-// @Summary Return 200 status Ok in Liveness
+// @Summary Return 200 status Ok in Readiness
 // @Tags Readiness
 // @Produce json
-// @Success 200 {object} Liveness
+// @Success 200 {object} Readiness
 // @Router /readiness [get]
 func Ok(c *gin.Context) {
 

@@ -12,10 +12,10 @@ type Teapot struct {
 }
 
 // Teapot godoc
-// @Summary Return 200 status Teapot in healthcheck
+// @Summary Return 200 status Teapot in Teapot
 // @Tags ImATeaPot
 // @Produce json
-// @Success 200 {object} Healthcheck
+// @Success 200 {object} Teapot
 // @Router /whoami [get]
 func Get(c *gin.Context) {
 

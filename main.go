@@ -42,7 +42,7 @@ import (
 // @BasePath /
 func main() {
 
-	router := gin.Default()
+	router := gin.New()
 
 	// Memory Cache Singleton
 	c := memory_cache.GetInstance()
