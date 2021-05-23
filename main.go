@@ -9,6 +9,7 @@ import (
 	"chip/controllers/reflection"
 	"chip/controllers/system"
 	"chip/controllers/version"
+	"chip/controllers/teapot"
 	"fmt"
 	"os"
 	"strconv"
@@ -41,7 +42,7 @@ import (
 // @BasePath /
 func main() {
 
-	router := gin.Default()
+	router := gin.New()
 
 	// Memory Cache Singleton
 	c := memory_cache.GetInstance()
@@ -106,6 +107,9 @@ func main() {
 
 	//Ping
 	router.GET("/ping/:host/:port", ping.Tcp)
+
+	// I'am a Teapot
+	router.GET("/whoami", teapot.Get)
 
 	router.Run()
 }

@@ -350,6 +350,25 @@ Content-Length: 71
 ```
 
 
+## Whoami? 
+
+```sh
+curl -X GET 0.0.0.0:8080/whoami -i 
+
+HTTP/1.1 418 I'm a teapot
+Content-Type: text/plain; charset=utf-8
+Date: Sun, 23 May 2021 00:53:46 GMT
+Content-Length: 85
+
+
+             ;,'
+     _o_    ;:;'
+ ,-.'---`.__ ;
+((j`=====',-'
+ `-\     /
+    `-=-'
+```
+
 ## Author
 
 👤 **Matheus Fidelis**
