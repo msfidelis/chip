@@ -10,11 +10,15 @@ import (
 	"chip/controllers/system"
 	"chip/controllers/version"
 	"chip/controllers/teapot"
+	"chip/controllers/logging"
 	"fmt"
 	"os"
+	"io"
 	"strconv"
 	"time"
-
+	"github.com/gin-contrib/logger"
+	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"	
 	"github.com/Depado/ginprom"
 	"github.com/gin-gonic/gin"
 
@@ -44,6 +48,19 @@ func main() {
 
 	router := gin.New()
 
+	// Logger
+	zerolog.SetGlobalLevel(zerolog.InfoLevel)
+	if gin.IsDebugging() {
+		zerolog.SetGlobalLevel(zerolog.DebugLevel)
+	}
+
+	log.Logger = log.Output(
+		zerolog.ConsoleWriter{
+			Out:     os.Stderr,
+			NoColor: false,
+		},
+	)
+
 	// Memory Cache Singleton
 	c := memory_cache.GetInstance()
 
@@ -69,6 +86,17 @@ func main() {
 	router.Use(p.Instrument())
 	router.Use(gin.Recovery())
 	router.Use(chaos.Load())
+	router.Use(logger.SetLogger(
+		logger.WithSkipPath([]string{"/skip"}),
+		logger.WithUTC(true),
+		logger.WithLogger(func(c *gin.Context, out io.Writer, latency time.Duration) zerolog.Logger {
+			return zerolog.New(out).With().
+				Str("method", c.Request.Method).
+				Str("path", c.Request.URL.Path).
+				Dur("latency", latency).
+				Logger()
+		}),
+	))
 
 	//Swagger
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
@@ -104,6 +132,9 @@ func main() {
 	router.PUT("/reflection", reflection.Put)
 	router.PATCH("/reflection", reflection.Patch)
 	router.DELETE("/reflection", reflection.Delete)
+
+	// Logging
+	router.GET("/logging", logging.Get)
 
 	//Ping
 	router.GET("/ping/:host/:port", ping.Tcp)
