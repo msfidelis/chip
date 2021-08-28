@@ -2,6 +2,7 @@ package version
 
 import (
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
@@ -12,7 +13,13 @@ import (
 // @Tags Version
 // @Router /version [get]
 func Get(c *gin.Context) {
+
+	version := os.Getenv("VERSION")
+	if version == "" {
+		version = "v2"
+	}
+
 	c.JSON(http.StatusOK, gin.H{
-		"version": "v2",
+		"version": version,
 	})
 }

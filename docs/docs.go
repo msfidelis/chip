@@ -180,7 +180,7 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "number of log events; Default 1000",
+                        "description": "Number of log events; default 1000",
                         "name": "events",
                         "in": "query"
                     }
@@ -364,7 +364,7 @@ var doc = `{
         "/whoami": {
             "get": {
                 "produces": [
-                    "application/json"
+                    "text/plain"
                 ],
                 "tags": [
                     "ImATeaPot"
