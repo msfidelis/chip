@@ -1,0 +1,55 @@
+package proxy
+
+import (
+	"chip/libs/httpclient"
+	"fmt"
+	"net/http"
+	"time"
+
+	"github.com/gin-gonic/gin"
+)
+
+type Request struct {
+	Method  string `json:"method"`
+	Host    string `json:"host"`
+	Path    string `json:"path"`
+	Headers []struct {
+		Name  string `json:"name"`
+		Value string `json:"value"`
+	} `json:"headers"`
+	Body string `json:"body"`
+}
+
+type Response struct {
+	StatusCode   int           `json:"status_code"`
+	ResponseTime time.Duration `json:"response_time"`
+}
+
+// Proxy godoc
+// @Summary Proxy Request
+// @Tags Proxy
+// @Produce json
+// @Success 200 {object} system.Capabilities
+// @Router /proxy [post]
+func Post(c *gin.Context) {
+
+	var request Request
+	var response Response
+
+	if err := c.ShouldBindJSON(&request); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	headers := make(map[string][]string)
+	for _, header := range request.Headers {
+		headers[header.Name] = append(headers[header.Name], header.Value)
+	}
+
+	fmt.Println(headers)
+
+	httpclient.Request(request.Method, request.Host, request.Path, headers, request.Body)
+	// response.StatusCode = res.StatusCode()
+
+	c.JSON(http.StatusOK, response)
+}
