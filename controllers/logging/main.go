@@ -18,6 +18,8 @@ type response struct {
 type fake struct {
 	UserName           string  `faker:"username"`
 	PhoneNumber        string  `faker:"phone_number"`
+	IPV4               string  `faker:"ipv4"`
+	IPV6               string  `faker:"ipv6"`
 	MacAddress         string  `faker:"mac_address"`
 	URL                string  `faker:"url"`
 	DayOfWeek          string  `faker:"day_of_week"`
@@ -34,8 +36,16 @@ type fake struct {
 	AmountWithCurrency string  `faker:"amount_with_currency"`
 	UUIDHypenated      string  `faker:"uuid_hyphenated"`
 	UUID               string  `faker:"uuid_digit"`
+	PaymentMethod      string  `faker:"oneof: cc, paypal, check, money order"`
 }
 
+// Logs godoc
+// @Summary Sent log events to application stdout
+// @Tags Logging
+// @Produce json
+// @Param events query string false "Number of log events; default 1000"
+// @Success 200 {object} response
+// @Router /logging [get]
 func Get(c *gin.Context) {
 	log := logger.Instance()
 
@@ -59,6 +69,8 @@ func Get(c *gin.Context) {
 			Str("username", a.UserName).
 			Str("phone", a.PhoneNumber).
 			Str("mac_address", a.MacAddress).
+			Str("ipv4", a.IPV4).
+			Str("ipv6", a.IPV6).
 			Str("url", a.URL).
 			Str("day_of_week", a.DayOfWeek).
 			Str("day_of_month", a.DayOfMonth).
@@ -73,6 +85,7 @@ func Get(c *gin.Context) {
 			Str("id", a.UUID).
 			Str("transaction", a.UUIDHypenated).
 			Str("amount", a.AmountWithCurrency).
+			Str("payment_method", a.PaymentMethod).
 			Msg("Mock log")
 	}
 

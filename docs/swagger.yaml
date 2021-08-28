@@ -10,6 +10,30 @@ definitions:
     - description
     - status
     type: object
+  liveness.Liveness:
+    properties:
+      status:
+        type: string
+    required:
+    - status
+    type: object
+  logging.response:
+    properties:
+      message:
+        type: string
+      status:
+        type: integer
+    required:
+    - message
+    - status
+    type: object
+  readiness.Readiness:
+    properties:
+      status:
+        type: string
+    required:
+    - status
+    type: object
   reflect.Request:
     properties:
       body:
@@ -50,6 +74,11 @@ definitions:
     - hypervisor
     - memory
     - os
+    type: object
+  teapot.Teapot:
+    properties:
+      body:
+        type: string
     type: object
 info:
   contact:
@@ -125,6 +154,71 @@ paths:
       summary: Inject ocasional erros in healthcheck
       tags:
       - Healthcheck
+  /liveness:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/liveness.Liveness'
+      summary: Return 200 status Ok in Liveness
+      tags:
+      - Liveness
+  /liveness/error:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/liveness.Liveness'
+      summary: Return 500 Error Status Code
+      tags:
+      - Liveness
+  /logging:
+    get:
+      parameters:
+      - description: number of log events; Default 1000
+        in: query
+        name: events
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/logging.response'
+      summary: Sent log events to application stdout
+      tags:
+      - Logging
+  /readiness:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/readiness.Readiness'
+      summary: Return 200 status Ok in Readiness
+      tags:
+      - Readiness
+  /readiness/error:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/readiness.Readiness'
+      summary: Return 500 Error Status Code
+      tags:
+      - Readiness
   /reflection:
     delete:
       produces:
@@ -207,4 +301,16 @@ paths:
       summary: Return version for container
       tags:
       - Version
+  /whoami:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/teapot.Teapot'
+      summary: Return 200 status Teapot in Teapot
+      tags:
+      - ImATeaPot
 swagger: "2.0"
