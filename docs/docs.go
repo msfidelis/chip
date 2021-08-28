@@ -195,6 +195,25 @@ var doc = `{
                 }
             }
         },
+        "/proxy": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Proxy"
+                ],
+                "summary": "Proxy Request",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/proxy.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/readiness": {
             "get": {
                 "produces": [
@@ -419,6 +438,20 @@ var doc = `{
                     "type": "string"
                 },
                 "status": {
+                    "type": "integer"
+                }
+            }
+        },
+        "proxy.Response": {
+            "type": "object",
+            "properties": {
+                "body": {
+                    "type": "string"
+                },
+                "headers": {
+                    "type": "string"
+                },
+                "status_code": {
                     "type": "integer"
                 }
             }

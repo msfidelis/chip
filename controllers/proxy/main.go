@@ -28,7 +28,7 @@ type Response struct {
 // @Summary Proxy Request
 // @Tags Proxy
 // @Produce json
-// @Success 200 {object} system.Capabilities
+// @Success 200 {object} Response
 // @Router /proxy [post]
 func Post(c *gin.Context) {
 
