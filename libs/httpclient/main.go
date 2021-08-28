@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-func Request(method string, host string, path string, headers map[string][]string, body string) *http.Response {
+func Request(method string, host string, path string, headers map[string][]string, body string) (*http.Response, string) {
 
 	log := logger.Instance()
 	log.Info().
@@ -58,6 +58,6 @@ func Request(method string, host string, path string, headers map[string][]strin
 		Int("status_code", res.StatusCode).
 		Msg("Success on request execution")
 
-	return res
+	return res, string(data)
 
 }

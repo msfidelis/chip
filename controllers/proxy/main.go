@@ -2,9 +2,7 @@ package proxy
 
 import (
 	"chip/libs/httpclient"
-	"fmt"
 	"net/http"
-	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -21,8 +19,9 @@ type Request struct {
 }
 
 type Response struct {
-	StatusCode   int           `json:"status_code"`
-	ResponseTime time.Duration `json:"response_time"`
+	StatusCode int         `json:"status_code"`
+	Body       string      `json:"body"`
+	Headers    http.Header `json:"headers"`
 }
 
 // Proxy godoc
@@ -46,10 +45,11 @@ func Post(c *gin.Context) {
 		headers[header.Name] = append(headers[header.Name], header.Value)
 	}
 
-	fmt.Println(headers)
+	res, body := httpclient.Request(request.Method, request.Host, request.Path, headers, request.Body)
 
-	httpclient.Request(request.Method, request.Host, request.Path, headers, request.Body)
-	// response.StatusCode = res.StatusCode()
+	response.StatusCode = res.StatusCode
+	response.Body = body
+	response.Headers = res.Header
 
 	c.JSON(http.StatusOK, response)
 }
