@@ -349,6 +349,20 @@ Content-Length: 71
 {"host":"google.com","port":"80","protocol":"tcp","status":"connected"}
 ```
 
+## Logging Events 
+
+Sent a log of logs to stdout. Sent querystring `events` to customize the number of logs; Default `1000`.
+
+```sh
+curl -X GET "0.0.0.0:8080/logging?events=2000" -i 
+
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Date: Sat, 28 Aug 2021 14:50:41 GMT
+Content-Length: 61
+
+{"status":200,"message":"2000 logging events sent to stdout"}
+```
 
 ## Whoami? 
 
