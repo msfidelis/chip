@@ -207,7 +207,13 @@ Content-Length: 22
 
 ## Version
 
-This endpoint return different values in accord to tag version, v1, v2, v1-blue, v1-green, v2-blue and v2-green. Ideal to tests deployment scenarios behavior, like rollout, canary, blue / green etc
+This endpoint return different values in accord to tag version, v1, v2, v1-blue, v1-green, v2-blue and v2-green. Ideal to tests deployment scenarios behavior, like rollout, canary, blue / green etc.
+
+This variable can be customized using environment variable called `VERSION``
+
+```sh
+export VERSION=v3
+```
 
 ```sh
 curl 0.0.0.0:8080/version -i

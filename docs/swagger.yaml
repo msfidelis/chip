@@ -181,7 +181,7 @@ paths:
   /logging:
     get:
       parameters:
-      - description: number of log events; Default 1000
+      - description: Number of log events; default 1000
         in: query
         name: events
         type: string
@@ -304,7 +304,7 @@ paths:
   /whoami:
     get:
       produces:
-      - application/json
+      - text/plain
       responses:
         "200":
           description: OK

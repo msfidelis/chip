@@ -6,6 +6,7 @@ services:
         dockerfile: Dockerfile.dev
     environment:
       - ENVIRONMENT=dev
+      - VERSION=v1
       - READINESS_PROBE_MOCK_TIME_IN_SECONDS=10
       - CHAOS_MONKEY_ENABLED=true
       - CHAOS_MONKEY_MODE=critical
