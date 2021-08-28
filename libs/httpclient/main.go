@@ -17,7 +17,6 @@ func Request(method string, host string, path string, headers map[string][]strin
 		Str("method", strings.ToUpper(method)).
 		Str("host", host).
 		Str("path", path).
-		// Str("headers", headers).
 		Str("body", body).
 		Msg("Execution an HTTP request as proxy")
 
@@ -39,7 +38,6 @@ func Request(method string, host string, path string, headers map[string][]strin
 			Str("method", strings.ToUpper(method)).
 			Str("host", host).
 			Str("path", path).
-			// Str("headers", headers).
 			Str("body", body).
 			Str("error", err.Error()).
 			Msg("Error during request execution")
@@ -53,7 +51,6 @@ func Request(method string, host string, path string, headers map[string][]strin
 		Str("method", strings.ToUpper(method)).
 		Str("host", host).
 		Str("path", path).
-		// Str("headers", headers).
 		Str("body", string(data)).
 		Int("status_code", res.StatusCode).
 		Msg("Success on request execution")
