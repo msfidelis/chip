@@ -1,23 +1,27 @@
 package logging
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/bxcodec/faker/v3"
 	"chip/libs/logger"
 	"fmt"
 	"net/http"
+	"strconv"
+
+	"github.com/bxcodec/faker/v3"
+	"github.com/gin-gonic/gin"
 )
 
 type response struct {
-	Status string `json:"status" binding:"required"`
+	Status  int    `json:"status" binding:"required"`
 	Message string `json:"message" binding:"required"`
 }
 
 type fake struct {
-	UserName string  `faker:"username"`
+	UserName           string  `faker:"username"`
 	PhoneNumber        string  `faker:"phone_number"`
+	IPV4               string  `faker:"ipv4"`
+	IPV6               string  `faker:"ipv6"`
 	MacAddress         string  `faker:"mac_address"`
-	URL                string  `faker:"url"`	
+	URL                string  `faker:"url"`
 	DayOfWeek          string  `faker:"day_of_week"`
 	DayOfMonth         string  `faker:"day_of_month"`
 	Timestamp          string  `faker:"timestamp"`
@@ -31,12 +35,29 @@ type fake struct {
 	Amount             float64 `faker:"amount"`
 	AmountWithCurrency string  `faker:"amount_with_currency"`
 	UUIDHypenated      string  `faker:"uuid_hyphenated"`
-	UUID               string  `faker:"uuid_digit"`	
+	UUID               string  `faker:"uuid_digit"`
+	PaymentMethod      string  `faker:"oneof: cc, paypal, check, money order"`
 }
 
+// Logs godoc
+// @Summary Sent log events to application stdout
+// @Tags Logging
+// @Produce json
+// @Param events query string false "Number of log events; default 1000"
+// @Success 200 {object} response
+// @Router /logging [get]
 func Get(c *gin.Context) {
 	log := logger.Instance()
-	for i := 0; i < 1000; i++ {
+
+	events := c.DefaultQuery("events", "1000")
+
+	intEvents, err := strconv.Atoi(events)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	for i := 0; i < intEvents; i++ {
 
 		a := fake{}
 		err := faker.FakeData(&a)
@@ -48,6 +69,8 @@ func Get(c *gin.Context) {
 			Str("username", a.UserName).
 			Str("phone", a.PhoneNumber).
 			Str("mac_address", a.MacAddress).
+			Str("ipv4", a.IPV4).
+			Str("ipv6", a.IPV6).
 			Str("url", a.URL).
 			Str("day_of_week", a.DayOfWeek).
 			Str("day_of_month", a.DayOfMonth).
@@ -56,16 +79,18 @@ func Get(c *gin.Context) {
 			Str("timezone", a.TimeZone).
 			Str("period", a.TimePeriod).
 			Str("word", a.Word).
-			Str("sentence", a.Sentence).
+			Str("message", a.Sentence).
 			Str("paragraph", a.Paragraph).
 			Str("currency", a.Currency).
 			Str("id", a.UUID).
 			Str("transaction", a.UUIDHypenated).
 			Str("amount", a.AmountWithCurrency).
+			Str("payment_method", a.PaymentMethod).
 			Msg("Mock log")
 	}
 
 	var res response
-	res.Status = "1000 events logged in stdout"
+	res.Message = fmt.Sprintf("%v logging events sent to stdout", events)
+	res.Status = http.StatusOK
 	c.JSON(http.StatusOK, res)
 }

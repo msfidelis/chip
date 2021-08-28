@@ -130,6 +130,109 @@ var doc = `{
                 }
             }
         },
+        "/liveness": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Liveness"
+                ],
+                "summary": "Return 200 status Ok in Liveness",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/liveness.Liveness"
+                        }
+                    }
+                }
+            }
+        },
+        "/liveness/error": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Liveness"
+                ],
+                "summary": "Return 500 Error Status Code",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/liveness.Liveness"
+                        }
+                    }
+                }
+            }
+        },
+        "/logging": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Logging"
+                ],
+                "summary": "Sent log events to application stdout",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "number of log events; Default 1000",
+                        "name": "events",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/logging.response"
+                        }
+                    }
+                }
+            }
+        },
+        "/readiness": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Readiness"
+                ],
+                "summary": "Return 200 status Ok in Readiness",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/readiness.Readiness"
+                        }
+                    }
+                }
+            }
+        },
+        "/readiness/error": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Readiness"
+                ],
+                "summary": "Return 500 Error Status Code",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/readiness.Readiness"
+                        }
+                    }
+                }
+            }
+        },
         "/reflection": {
             "get": {
                 "produces": [
@@ -257,6 +360,25 @@ var doc = `{
                 ],
                 "summary": "Return version for container"
             }
+        },
+        "/whoami": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ImATeaPot"
+                ],
+                "summary": "Return 200 status Teapot in Teapot",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/teapot.Teapot"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -272,6 +394,43 @@ var doc = `{
                 },
                 "status": {
                     "type": "integer"
+                }
+            }
+        },
+        "liveness.Liveness": {
+            "type": "object",
+            "required": [
+                "status"
+            ],
+            "properties": {
+                "status": {
+                    "type": "string"
+                }
+            }
+        },
+        "logging.response": {
+            "type": "object",
+            "required": [
+                "message",
+                "status"
+            ],
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                }
+            }
+        },
+        "readiness.Readiness": {
+            "type": "object",
+            "required": [
+                "status"
+            ],
+            "properties": {
+                "status": {
+                    "type": "string"
                 }
             }
         },
@@ -329,6 +488,14 @@ var doc = `{
                     "type": "integer"
                 },
                 "os": {
+                    "type": "string"
+                }
+            }
+        },
+        "teapot.Teapot": {
+            "type": "object",
+            "properties": {
+                "body": {
                     "type": "string"
                 }
             }
