@@ -12,6 +12,7 @@ require (
 	github.com/go-openapi/jsonreference v0.19.6 // indirect
 	github.com/go-openapi/spec v0.20.3 // indirect
 	github.com/go-openapi/swag v0.19.15 // indirect
+	github.com/go-resty/resty/v2 v2.6.0
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/msfidelis/gin-chaos-monkey v0.0.5
 	github.com/patrickmn/go-cache v2.1.0+incompatible

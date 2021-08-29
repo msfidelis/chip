@@ -27,6 +27,35 @@ definitions:
     - message
     - status
     type: object
+  proxy.Request:
+    properties:
+      body:
+        type: string
+      headers:
+        items:
+          properties:
+            name:
+              type: string
+            value:
+              type: string
+          type: object
+        type: array
+      host:
+        type: string
+      method:
+        type: string
+      path:
+        type: string
+    type: object
+  proxy.Response:
+    properties:
+      body:
+        type: string
+      headers:
+        type: string
+      status_code:
+        type: integer
+    type: object
   readiness.Readiness:
     properties:
       status:
@@ -195,6 +224,25 @@ paths:
       summary: Sent log events to application stdout
       tags:
       - Logging
+  /proxy:
+    post:
+      parameters:
+      - description: Proxy Information
+        in: body
+        name: message
+        required: true
+        schema:
+          $ref: '#/definitions/proxy.Request'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/proxy.Response'
+      summary: Proxy Request
+      tags:
+      - Proxy
   /readiness:
     get:
       produces:

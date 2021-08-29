@@ -4,26 +4,29 @@ import (
 	"chip/controllers/burn"
 	"chip/controllers/healthcheck"
 	"chip/controllers/liveness"
+	"chip/controllers/logging"
 	"chip/controllers/ping"
+	"chip/controllers/proxy"
 	"chip/controllers/readiness"
 	"chip/controllers/reflection"
 	"chip/controllers/system"
-	"chip/controllers/version"
 	"chip/controllers/teapot"
-	"chip/controllers/logging"
+	"chip/controllers/version"
 	"fmt"
-	"os"
 	"io"
+	"os"
 	"strconv"
 	"time"
-	"github.com/gin-contrib/logger"
-	"github.com/rs/zerolog"
-	"github.com/rs/zerolog/log"	
+
 	"github.com/Depado/ginprom"
+	"github.com/gin-contrib/logger"
 	"github.com/gin-gonic/gin"
+	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"
 
 	// "github.com/patrickmn/go-cache"
 	"chip/libs/memory_cache"
+
 	chaos "github.com/msfidelis/gin-chaos-monkey"
 
 	swaggerFiles "github.com/swaggo/files"
@@ -141,6 +144,9 @@ func main() {
 
 	// I'am a Teapot
 	router.GET("/whoami", teapot.Get)
+
+	// Proxy
+	router.POST("/proxy", proxy.Post)
 
 	router.Run()
 }
