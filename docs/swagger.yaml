@@ -27,6 +27,26 @@ definitions:
     - message
     - status
     type: object
+  proxy.Request:
+    properties:
+      body:
+        type: string
+      headers:
+        items:
+          properties:
+            name:
+              type: string
+            value:
+              type: string
+          type: object
+        type: array
+      host:
+        type: string
+      method:
+        type: string
+      path:
+        type: string
+    type: object
   proxy.Response:
     properties:
       body:
@@ -206,6 +226,13 @@ paths:
       - Logging
   /proxy:
     post:
+      parameters:
+      - description: Proxy Information
+        in: body
+        name: message
+        required: true
+        schema:
+          $ref: '#/definitions/proxy.Request'
       produces:
       - application/json
       responses:
