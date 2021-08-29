@@ -52,6 +52,12 @@ jobs:
       - name: Docker Tag Latest
         run: docker tag chip:latest fidelissauro/chip:latest
 
+      - name: Docker Tag V1
+        run: docker tag chip:latest fidelissauro/chip:v1       
+
+      - name: Docker Tag V2
+        run: docker tag chip:latest fidelissauro/chip:v2
+
       - name: Docker Tag Latest Release
         run: | 
           TAG=$(git describe --tags --abbrev=0)
@@ -64,6 +70,12 @@ jobs:
 
       - name: Docker Push Latest
         run: docker push fidelissauro/chip:latest
+
+      - name: Docker Push v1
+        run: docker push fidelissauro/chip:v1
+
+      - name: Docker Push v2
+        run: docker push fidelissauro/chip:v2
 
       - name: Docker Push Release Tag
         run: |
