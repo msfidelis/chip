@@ -281,6 +281,32 @@ curl -X GET 0.0.0.0:8080/reflect -i
 }
 ```
 
+## Proxy Request 
+
+Use this endpoint to proxy HTTP requests betweet chip and another endpoint 
+
+
+```sh
+curl --location --request POST 'http://0.0.0.0:8080/proxy' \                                                     ─╯
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "method": "GET",
+    "host": "https://google.com.br/",
+    "path": "/whoami",
+    "headers": [
+        {
+            "name": "content-type",
+            "value": "application/json"
+        },
+        {
+            "name": "foo",
+            "value": "bar"
+        }
+    ],
+    "body": "{\"vai\": \"sim\"}"
+}' 
+```
+
 ```sh
 curl -X POST "0.0.0.0:8080/reflection?id=1" -H "Header-Foo: Bar" -d '{"foo":"bar"}' | jq .
 
