@@ -50,7 +50,7 @@ jobs:
         run: docker build -t chip:latest .
 
       - name: Docker Tag Latest
-        run: docker tag chip:latest fidelissauro/cassler:latest
+        run: docker tag chip:latest fidelissauro/chip:latest
 
       - name: Docker Tag Latest Release
         run: | 
