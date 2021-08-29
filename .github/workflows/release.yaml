@@ -58,10 +58,6 @@ jobs:
       - name: Docker Tag V2
         run: docker tag chip:latest fidelissauro/chip:v2
 
-      - name: Docker Tag Latest Release
-        run: | 
-          TAG=$(git describe --tags --abbrev=0)
-          docker tag chip:latest fidelissauro/chip:$TAG
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
@@ -76,8 +72,3 @@ jobs:
 
       - name: Docker Push v2
         run: docker push fidelissauro/chip:v2
-
-      - name: Docker Push Release Tag
-        run: |
-          TAG=$(git describe --tags --abbrev=0)
-          docker push fidelissauro/chip:$TAG
