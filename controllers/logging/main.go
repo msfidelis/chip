@@ -65,7 +65,7 @@ func Get(c *gin.Context) {
 			fmt.Println(err)
 		}
 
-		log.Warn().
+		log.Info().
 			Str("username", a.UserName).
 			Str("phone", a.PhoneNumber).
 			Str("mac_address", a.MacAddress).
