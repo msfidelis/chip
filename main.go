@@ -12,11 +12,16 @@ import (
 	"chip/controllers/system"
 	"chip/controllers/teapot"
 	"chip/controllers/version"
+	loggerInternal "chip/libs/logger"
 	"fmt"
 	"io"
 	"os"
+	"os/signal"
 	"strconv"
 	"time"
+	"syscall"
+	"context"
+	"net/http"
 
 	"github.com/Depado/ginprom"
 	"github.com/gin-contrib/logger"
@@ -85,6 +90,9 @@ func main() {
 		ginprom.Path("/metrics"),
 	)
 
+	// Logger
+	logInternal := loggerInternal.Instance()
+
 	//Middlewares
 	router.Use(p.Instrument())
 	router.Use(gin.Recovery())
@@ -129,12 +137,19 @@ func main() {
 	router.GET("/burn/cpu", burn.Cpu)
 	router.GET("/burn/ram", burn.Mem)
 
-	// Reflection
+	// Reflection - DEPRECATED
 	router.GET("/reflection", reflection.Get)
 	router.POST("/reflection", reflection.Post)
 	router.PUT("/reflection", reflection.Put)
 	router.PATCH("/reflection", reflection.Patch)
 	router.DELETE("/reflection", reflection.Delete)
+
+	// Echo 
+	router.GET("/echo", reflection.Get)
+	router.POST("/echo", reflection.Post)
+	router.PUT("/echo", reflection.Put)
+	router.PATCH("/echo", reflection.Patch)
+	router.DELETE("/echo", reflection.Delete)
 
 	// Logging
 	router.GET("/logging", logging.Get)
@@ -148,5 +163,40 @@ func main() {
 	// Proxy
 	router.POST("/proxy", proxy.Post)
 
-	router.Run()
+	// Graceful Shutdown Config
+	srv := &http.Server{
+		Addr:    ":8080",
+		Handler: router,
+	}
+
+	go func() {
+		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+			logInternal.
+				Error().
+				Str("Error", err.Error()).
+				Msg("Failed to listen")
+		}
+	}()
+
+	quit := make(chan os.Signal, 1)
+
+	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+	<-quit
+
+	logInternal.
+		Warn().
+		Msg("Shutting down server...")
+
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	defer cancel()
+
+	if err := srv.Shutdown(ctx); err != nil {
+		logInternal.
+			Error().
+			Str("Error", err.Error()).
+			Msg("Server forced to shutdown: ")
+	}
+
+	fmt.Println("Server exiting")
+
 }
