@@ -9,6 +9,7 @@ import (
 	"chip/controllers/proxy"
 	"chip/controllers/readiness"
 	"chip/controllers/reflection"
+	"chip/controllers/system"
 
 	// "chip/controllers/system"
 	"chip/controllers/teapot"
@@ -132,7 +133,7 @@ func main() {
 
 	// // System
 	// router.GET("/system", system.System)
-	// router.GET("/system/environment", system.Environment)
+	router.GET("/system/environment", system.Environment)
 
 	// Stress Test
 	router.GET("/burn/cpu", burn.Cpu)

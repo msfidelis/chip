@@ -1,13 +1,11 @@
-// package system
+package system
 
-// import (
-// 	"net/http"
-// 	"os"
+import (
+	"net/http"
+	"os"
 
-// 	"github.com/gin-gonic/gin"
-
-// 	"chip/libs/system"
-// )
+	"github.com/gin-gonic/gin"
+)
 
 // // System godoc
 // // @Summary Return 500 Error Status Code
@@ -25,11 +23,11 @@
 // 	// c.JSON(http.StatusOK, si)
 // }
 
-// // Environment godoc
-// // @Summary Dump all environment variables in container
-// // @Produce json
-// // @Tags System
-// // @Router /system/environment [get]
-// func Environment(c *gin.Context) {
-// 	c.JSON(http.StatusOK, os.Environ())
-// }
+// Environment godoc
+// @Summary Dump all environment variables in container
+// @Produce json
+// @Tags System
+// @Router /system/environment [get]
+func Environment(c *gin.Context) {
+	c.JSON(http.StatusOK, os.Environ())
+}
