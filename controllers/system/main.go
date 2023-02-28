@@ -1,6 +1,7 @@
 package system
 
 import (
+	"chip/libs/system"
 	"net/http"
 	"os"
 
@@ -13,15 +14,11 @@ import (
 // // @Produce json
 // // @Success 200 {object} system.Capabilities
 // // @Router /system [get]
-// func System(c *gin.Context) {
+func System(c *gin.Context) {
 
-// 	var info = system.Info()
-// 	// var si sysinfo.SysInfo
-// 	// si.GetSysInfo()
-
-// 	c.JSON(http.StatusOK, info)
-// 	// c.JSON(http.StatusOK, si)
-// }
+	var info = system.Info()
+	c.JSON(http.StatusOK, info)
+}
 
 // Environment godoc
 // @Summary Dump all environment variables in container

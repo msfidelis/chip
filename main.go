@@ -132,7 +132,7 @@ func main() {
 	router.GET("/version", version.Get)
 
 	// // System
-	// router.GET("/system", system.System)
+	router.GET("/system", system.System)
 	router.GET("/system/environment", system.Environment)
 
 	// Stress Test
