@@ -23,7 +23,7 @@ require (
 	github.com/swaggo/swag v1.6.7
 	github.com/urfave/cli v1.22.4 // indirect
 	github.com/urfave/cli/v2 v2.3.0 // indirect
-	github.com/zcalusic/sysinfo v0.0.0-20200228145645-a159d7cc708b
+	github.com/zcalusic/sysinfo v0.9.5
 	golang.org/x/net v0.0.0-20210825183410-e898025ed96a // indirect
 	golang.org/x/sys v0.0.0-20210823070655-63515b42dcdf // indirect
 	golang.org/x/text v0.3.7 // indirect

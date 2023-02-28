@@ -9,19 +9,20 @@ import (
 	"chip/controllers/proxy"
 	"chip/controllers/readiness"
 	"chip/controllers/reflection"
-	"chip/controllers/system"
+
+	// "chip/controllers/system"
 	"chip/controllers/teapot"
 	"chip/controllers/version"
 	loggerInternal "chip/libs/logger"
+	"context"
 	"fmt"
 	"io"
+	"net/http"
 	"os"
 	"os/signal"
 	"strconv"
-	"time"
 	"syscall"
-	"context"
-	"net/http"
+	"time"
 
 	"github.com/Depado/ginprom"
 	"github.com/gin-contrib/logger"
@@ -129,9 +130,9 @@ func main() {
 	// Version
 	router.GET("/version", version.Get)
 
-	// System
-	router.GET("/system", system.System)
-	router.GET("/system/environment", system.Environment)
+	// // System
+	// router.GET("/system", system.System)
+	// router.GET("/system/environment", system.Environment)
 
 	// Stress Test
 	router.GET("/burn/cpu", burn.Cpu)
@@ -144,7 +145,7 @@ func main() {
 	router.PATCH("/reflection", reflection.Patch)
 	router.DELETE("/reflection", reflection.Delete)
 
-	// Echo 
+	// Echo
 	router.GET("/echo", reflection.Get)
 	router.POST("/echo", reflection.Post)
 	router.PUT("/echo", reflection.Put)
