@@ -17,7 +17,6 @@ import (
 	loggerInternal "chip/libs/logger"
 	"context"
 	"fmt"
-	"io"
 	"net/http"
 	"os"
 	"os/signal"
@@ -102,13 +101,13 @@ func main() {
 	router.Use(logger.SetLogger(
 		logger.WithSkipPath([]string{"/skip"}),
 		logger.WithUTC(true),
-		logger.WithLogger(func(c *gin.Context, out io.Writer, latency time.Duration) zerolog.Logger {
-			return zerolog.New(out).With().
-				Str("method", c.Request.Method).
-				Str("path", c.Request.URL.Path).
-				Dur("latency", latency).
-				Logger()
-		}),
+		// logger.WithLogger(func(c *gin.Context, out io.Writer, latency time.Duration) zerolog.Logger {
+		// 	return zerolog.New(out).With().
+		// 		Str("method", c.Request.Method).
+		// 		Str("path", c.Request.URL.Path).
+		// 		Dur("latency", latency).
+		// 		Logger()
+		// }),
 	))
 
 	//Swagger

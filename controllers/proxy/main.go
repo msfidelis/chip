@@ -19,9 +19,9 @@ type Request struct {
 }
 
 type Response struct {
-	StatusCode int         `json:"status_code"`
-	Body       string      `json:"body"`
-	Headers    http.Header `json:"headers"`
+	StatusCode int                 `json:"status_code"`
+	Body       string              `json:"body"`
+	Headers    map[string][]string `json:"headers"`
 }
 
 // Proxy godoc

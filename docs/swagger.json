@@ -24,7 +24,8 @@
                 "tags": [
                     "Loadtest"
                 ],
-                "summary": "Burn CPU for Loadtests and Auto Scaling Tests"
+                "summary": "Burn CPU for Loadtests and Auto Scaling Tests",
+                "responses": {}
             }
         },
         "/burn/ram": {
@@ -35,7 +36,8 @@
                 "tags": [
                     "Loadtest"
                 ],
-                "summary": "Burn RAM for Loadtests and Auto Scaling Tests"
+                "summary": "Burn RAM for Loadtests and Auto Scaling Tests",
+                "responses": {}
             }
         },
         "/healthcheck": {
@@ -334,25 +336,6 @@
                 }
             }
         },
-        "/system": {
-            "get": {
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "System"
-                ],
-                "summary": "Return 500 Error Status Code",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/system.Capabilities"
-                        }
-                    }
-                }
-            }
-        },
         "/system/environment": {
             "get": {
                 "produces": [
@@ -361,7 +344,8 @@
                 "tags": [
                     "System"
                 ],
-                "summary": "Dump all environment variables in container"
+                "summary": "Dump all environment variables in container",
+                "responses": {}
             }
         },
         "/version": {
@@ -372,7 +356,8 @@
                 "tags": [
                     "Version"
                 ],
-                "summary": "Return version for container"
+                "summary": "Return version for container",
+                "responses": {}
             }
         },
         "/whoami": {
@@ -475,7 +460,13 @@
                     "type": "string"
                 },
                 "headers": {
-                    "type": "string"
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
                 },
                 "status_code": {
                     "type": "integer"
@@ -497,7 +488,6 @@
             "type": "object",
             "required": [
                 "body",
-                "cookies",
                 "headers",
                 "method",
                 "params",
@@ -505,13 +495,17 @@
             ],
             "properties": {
                 "body": {
-                    "type": "string"
-                },
-                "cookies": {
+                    "description": "Cookies []*http.Cookie      `json:\"cookies\" binding:\"required\"`",
                     "type": "string"
                 },
                 "headers": {
-                    "type": "string"
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
                 },
                 "method": {
                     "type": "string"
@@ -520,33 +514,6 @@
                     "type": "string"
                 },
                 "path": {
-                    "type": "string"
-                }
-            }
-        },
-        "system.Capabilities": {
-            "type": "object",
-            "required": [
-                "cpus",
-                "hostname",
-                "hypervisor",
-                "memory",
-                "os"
-            ],
-            "properties": {
-                "cpus": {
-                    "type": "integer"
-                },
-                "hostname": {
-                    "type": "string"
-                },
-                "hypervisor": {
-                    "type": "string"
-                },
-                "memory": {
-                    "type": "integer"
-                },
-                "os": {
                     "type": "string"
                 }
             }

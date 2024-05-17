@@ -1,4 +1,4 @@
-FROM golang:1.19 AS builder
+FROM golang:1.22 AS builder
 
 # Install Air
 RUN go get -u github.com/cosmtrek/air

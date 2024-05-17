@@ -52,7 +52,11 @@ definitions:
       body:
         type: string
       headers:
-        type: string
+        additionalProperties:
+          items:
+            type: string
+          type: array
+        type: object
       status_code:
         type: integer
     type: object
@@ -66,11 +70,14 @@ definitions:
   reflect.Request:
     properties:
       body:
-        type: string
-      cookies:
+        description: Cookies []*http.Cookie      `json:"cookies" binding:"required"`
         type: string
       headers:
-        type: string
+        additionalProperties:
+          items:
+            type: string
+          type: array
+        type: object
       method:
         type: string
       params:
@@ -79,30 +86,10 @@ definitions:
         type: string
     required:
     - body
-    - cookies
     - headers
     - method
     - params
     - path
-    type: object
-  system.Capabilities:
-    properties:
-      cpus:
-        type: integer
-      hostname:
-        type: string
-      hypervisor:
-        type: string
-      memory:
-        type: integer
-      os:
-        type: string
-    required:
-    - cpus
-    - hostname
-    - hypervisor
-    - memory
-    - os
     type: object
   teapot.Teapot:
     properties:
@@ -125,6 +112,7 @@ paths:
     get:
       produces:
       - application/json
+      responses: {}
       summary: Burn CPU for Loadtests and Auto Scaling Tests
       tags:
       - Loadtest
@@ -132,6 +120,7 @@ paths:
     get:
       produces:
       - application/json
+      responses: {}
       summary: Burn RAM for Loadtests and Auto Scaling Tests
       tags:
       - Loadtest
@@ -323,22 +312,11 @@ paths:
       summary: Retun request parameters in response for transformation tests
       tags:
       - Reflection
-  /system:
-    get:
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/system.Capabilities'
-      summary: Return 500 Error Status Code
-      tags:
-      - System
   /system/environment:
     get:
       produces:
       - application/json
+      responses: {}
       summary: Dump all environment variables in container
       tags:
       - System
@@ -346,6 +324,7 @@ paths:
     get:
       produces:
       - application/json
+      responses: {}
       summary: Return version for container
       tags:
       - Version
