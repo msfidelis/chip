@@ -1,10 +1,10 @@
-FROM golang:1.19 AS builder
+FROM golang:1.22 AS builder
 
 WORKDIR $GOPATH/src/chip
 
 COPY . ./
 
-RUN go get -u github.com/swaggo/swag/cmd/swag@v1.6.7
+RUN go install github.com/swaggo/swag/cmd/swag@v1.7.8
 
 RUN go get -u
 
