@@ -32,7 +32,7 @@ func Cpu(c *gin.Context) {
 		}()
 	}
 
-	time.Sleep(2 * time.Second)
+	time.Sleep(3 * time.Second)
 	for i := 0; i < n; i++ {
 		quit <- true
 	}
