@@ -1,6 +1,6 @@
-FROM golang:1.22 AS builder
+FROM fidelissauro/apko-go:latest-amd64 AS builder
 
-WORKDIR $GOPATH/src/chip
+WORKDIR /root/src/chip
 
 COPY . ./
 
@@ -13,9 +13,9 @@ RUN swag init
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
 
 
-FROM cgr.dev/chainguard/wolfi-base:latest
+FROM fidelissauro/apko-run:latest-amd64
 
-COPY --from=builder /go/src/chip/main ./
+COPY --from=builder /root/src/chip/main ./
 
 EXPOSE 8080
 
