@@ -2,6 +2,7 @@ package httpclient
 
 import (
 	"chip/libs/logger"
+	"crypto/tls"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -23,6 +24,7 @@ func Request(method string, host string, path string, headers map[string][]strin
 	reqURL, _ := url.Parse(fmt.Sprintf("%s%s", host, path))
 	reqBody := ioutil.NopCloser(strings.NewReader(body))
 
+	http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
 	req := &http.Request{
 		Method: strings.ToUpper(method),
 		URL:    reqURL,
