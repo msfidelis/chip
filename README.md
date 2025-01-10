@@ -402,24 +402,52 @@ List some directory contents
 
 ```bash
 curl -X POST "0.0.0.0:8080/filesystem/ls" -i -d '{"path": "./"}'
+
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Date: Fri, 10 Jan 2025 11:52:26 GMT
+Content-Length: 86
+
+{"path":"./","files":[".dockerenv","dev","etc","lib","main","proc","sys","tmp","var"]}
 ```
 
-Write file 
+Write file - base64 content
 
 ```bash
-curl -X POST "0.0.0.0:8080/filesystem/write" -d '{"path": "./test", "content": "V3JpdGUgVGVzdAo="}';
+curl -X POST "0.0.0.0:8080/filesystem/write" -i -d '{"path": "./test", "content": "V3JpdGUgVGVzdAo="}';
+
+HTTP/1.1 202 Accepted
+Content-Type: application/json; charset=utf-8
+Date: Fri, 10 Jan 2025 11:58:13 GMT
+Content-Length: 42
+
+{"message":"file written","path":"./test"}
 ```
 
 Read files on filesystem 
 
 ```bash
-curl -X POST "0.0.0.0:8080/filesystem/cat" -d '{"path": "./test"}';
+curl -X POST "0.0.0.0:8080/filesystem/cat" -i -d '{"path": "./test"}';
+
+HTTP/1.1 200 OK
+Content-Type: text/plain; charset=utf-8
+Date: Fri, 10 Jan 2025 11:58:44 GMT
+Content-Length: 11
+
+Write Test
 ```
 
 Delete files on filesystem 
 
 ```bash
-curl -X DELETE "0.0.0.0:8080/filesystem/delete" -d '{"path": "./test"}';
+curl -X DELETE "0.0.0.0:8080/filesystem/delete" -i -d '{"path": "./test"}';
+
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Date: Fri, 10 Jan 2025 11:59:01 GMT
+Content-Length: 26
+
+{"message":"file deleted"}
 ```
 
 ## Whoami? 
