@@ -2,6 +2,7 @@ package main
 
 import (
 	"chip/controllers/burn"
+	"chip/controllers/filesystem"
 	"chip/controllers/healthcheck"
 	"chip/controllers/liveness"
 	"chip/controllers/logging"
@@ -163,6 +164,12 @@ func main() {
 
 	// Proxy
 	router.POST("/proxy", proxy.Post)
+
+	// Filesystem
+	router.POST("/filesystem/ls", filesystem.Ls)
+	router.POST("/filesystem/cat", filesystem.Cat)
+	router.POST("/filesystem/write", filesystem.WriteFile)
+	router.DELETE("/filesystem/delete", filesystem.DeleteFile)
 
 	// Graceful Shutdown Config
 	srv := &http.Server{

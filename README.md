@@ -396,6 +396,32 @@ Content-Length: 61
 {"status":200,"message":"2000 logging events sent to stdout"}
 ```
 
+## Filesystem
+
+List some directory contents 
+
+```bash
+curl -X POST "0.0.0.0:8080/filesystem/ls" -i -d '{"path": "./"}'
+```
+
+Write file 
+
+```bash
+curl -X POST "0.0.0.0:8080/filesystem/write" -d '{"path": "./test", "content": "V3JpdGUgVGVzdAo="}';
+```
+
+Read files on filesystem 
+
+```bash
+curl -X POST "0.0.0.0:8080/filesystem/cat" -d '{"path": "./test"}';
+```
+
+Delete files on filesystem 
+
+```bash
+curl -X DELETE "0.0.0.0:8080/filesystem/delete" -d '{"path": "./test"}';
+```
+
 ## Whoami? 
 
 ```sh
